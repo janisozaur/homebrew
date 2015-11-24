@@ -5,6 +5,8 @@ class Jemalloc < Formula
   sha256 "214dbc74c3669b34219b0c5a55cb96f07cb12f44c834ed9ee64d1185ee6c3ef2"
   head "https://github.com/jemalloc/jemalloc.git"
 
+  option :universal
+
   bottle do
     cellar :any
     sha256 "2d9d3b8a36e1ffda6d5f4c5e1fabd95f496e4562a75cafba6ae975faa49e9bcd" => :el_capitan
@@ -13,6 +15,7 @@ class Jemalloc < Formula
   end
 
   def install
+    ENV.universal_binary if build.universal?
     system "./configure", "--disable-debug", "--prefix=#{prefix}", "--with-jemalloc-prefix="
     system "make", "install"
   end
